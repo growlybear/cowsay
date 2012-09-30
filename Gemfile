@@ -8,6 +8,7 @@ group :development, :test do
   gem "guard"
   gem "guard-bundler"
   gem "guard-rspec"
-  gem "rb-fsevent"
   gem "rack-test"
+  gem "rb-fsevent"
+  gem "growl"
 end
