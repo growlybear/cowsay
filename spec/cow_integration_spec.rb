@@ -32,9 +32,9 @@ END
 
   it "uses the message parameter if supplied" do
     expected = (<<'END').strip
- __________
-< Good bye >
- ----------
+ ___________
+< Good bye! >
+ -----------
         \   ^__^
          \  (oo)\_______
             (__)\       )\/\
@@ -42,7 +42,7 @@ END
                 ||     ||
 END
 
-    get '/?message=Good%20bye'
+    get '/', "message" => "Good bye!"
 
     last_response.should be_ok
 
