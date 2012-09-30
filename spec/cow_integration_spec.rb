@@ -29,4 +29,24 @@ END
     result = last_response.body.strip.gsub(/\s*\n/, "\n")
     result.should eq(expected)
   end
+
+  it "uses the message parameter if supplied" do
+    expected = (<<'END').strip
+ __________
+< Good bye >
+ ----------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+END
+
+    get '/?message=Good%20bye'
+
+    last_response.should be_ok
+
+    result = last_response.body.strip.gsub(/\s*\n/, "\n")
+    result.should eq(expected)
+  end
 end
