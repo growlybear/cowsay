@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'json'
 require_relative 'cowsay'
 
 get '/' do
@@ -8,4 +9,9 @@ get '/' do
 
   cow = Cowsay.new_cow(:cowfile => cowfile)
   cow.say(message)
+end
+
+get '/cowfiles' do
+  content_type :json
+  Cowsay.cowfiles.to_json
 end

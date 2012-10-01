@@ -1,4 +1,6 @@
 require 'rack/test'
+require 'sinatra'
+require 'json'
 require 'cow'
 
 set :environment, :test
@@ -76,5 +78,31 @@ END
 
     result = last_response.body.strip.gsub(/\s*\n/, "\n")
     result.should eq(expected)
+  end
+
+  describe "/cowfiles" do
+    def do_request
+      get '/cowfiles'
+    end
+
+    it "returns cowfiles with a JSON content type" do
+      do_request
+      last_response.content_type.should match(/application\/json/)
+    end
+
+    it "returns a list of available cowfiles in JSON" do
+      do_request
+      result = JSON.parse(last_response.body)
+      result.should eq(%w[
+
+        beavis.zen bud-frogs bunny cheese cower daemon default dragon
+        dragon-and-cow elephant elephant-in-snake eyes ghostbusters
+        hellokitty kitty koala kosh luke-koala meow milk moofasa moose
+        ren sheep skeleton small stegosaurus stimpy
+        three-eyes turkey turtle tux udder vader
+        vader-koala www
+
+      ])
+    end
   end
 end
